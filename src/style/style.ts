@@ -13,15 +13,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
   }
 
   body {
     background-color: ${colors.bodyBackground}
-  }
-
-  .container {
-    max-width: 1024px;
-    margin: 0 auto;
   }
 `
 

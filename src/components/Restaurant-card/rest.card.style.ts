@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import { TagStyled } from '../Tags/tags.style'
 import { colors } from '../../style/style'
@@ -62,4 +63,12 @@ export const KnowMoreConainer = styled.div`
   margin-bottom: 8px;
   display: flex;
   align-items: center;
+`
+
+export const LinkTag = styled(Link)`
+  background-color: ${colors.tagsBackground};
+  color: ${colors.bodyBackground};
+  font-size: 14px;
+  padding: 6px;
+  cursor: pointer;
 `

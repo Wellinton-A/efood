@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <HeaderHome />
-      <ContainerHome className="container">
+      <ContainerHome>
         <RestaurantCard />
         <RestaurantCard />
         <RestaurantCard />
