@@ -14,6 +14,7 @@ export const RestCardContainer = styled.div`
   & > span {
     color: ${colors.tagsBackground};
     font-size: 14px;
+    line-height: 22px;
     margin: 0 8px 16px;
   }
 `
