@@ -33,7 +33,7 @@ const Home = () => {
       <HeaderHome />
       <ContainerHome>
         {isLoading ? (
-          <h3>Carregando</h3>
+          <h3>Carregando...</h3>
         ) : (
           restaurants?.map((rest) => (
             <RestaurantCard key={rest.id} restaurant={rest} />
