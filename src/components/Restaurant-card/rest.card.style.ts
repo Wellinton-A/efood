@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom'
 import { TagStyled } from '../Tags/tags.style'
 import { colors } from '../../style/style'
 
+type Props = {
+  destacado: string
+}
+
 export const RestCardContainer = styled.div`
   width: 472px;
   display: flex;
@@ -22,6 +26,9 @@ export const RestCardContainer = styled.div`
 export const ImageContainer = styled.div`
   position: relative;
   height: 217px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
 `
 
 export const TagsContainer = styled.div`
@@ -36,8 +43,8 @@ export const TagNormal = styled(TagStyled)`
   cursor: initial;
 `
 
-export const TagHighlight = styled(TagNormal)`
-  display: none;
+export const TagHighlight = styled(TagNormal)<Props>`
+  display: ${(props) => (props.destacado === 'true' ? 'initial' : 'none')};
   margin-right: 8px;
 `
 
@@ -62,6 +69,7 @@ export const RateContainer = styled.div`
 export const KnowMoreConainer = styled.div`
   margin-left: 8px;
   margin-bottom: 8px;
+  margin-top: auto;
   display: flex;
   align-items: center;
 `

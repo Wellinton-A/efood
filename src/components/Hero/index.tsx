@@ -5,14 +5,20 @@ import {
   TitleSpan
 } from './hero.style'
 
-import image from '../../assets/images_efood/capa.png'
+import { Restaurant } from '../../containers/Home'
 
-const HeroPerfil = () => {
+type Props = {
+  restaurant: Restaurant
+}
+
+const HeroPerfil = ({ restaurant }: Props) => {
+  const { capa, tipo, titulo } = restaurant
+
   return (
-    <ImageHeroContainer style={{ backgroundImage: `url(${image})` }}>
+    <ImageHeroContainer style={{ backgroundImage: `url(${capa})` }}>
       <DescContainer>
-        <TypeSpan>Italiana</TypeSpan>
-        <TitleSpan>Hioki Sushi</TitleSpan>
+        <TypeSpan>{tipo}</TypeSpan>
+        <TitleSpan>{titulo}</TitleSpan>
       </DescContainer>
     </ImageHeroContainer>
   )

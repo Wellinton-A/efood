@@ -19,6 +19,11 @@ export const CardContainer = styled.div`
     font-weight: bold;
     margin: 8px 0;
   }
+
+  img {
+    height: 168px;
+    object-fit: cover;
+  }
 `
 
 export const AddButton = styled.span`
@@ -28,6 +33,7 @@ export const AddButton = styled.span`
   font-size: 14px;
   font-weight: bold;
   text-align: center;
-  margin-top: 8px;
+  margin-top: auto;
+  margin-bottom: 8px;
   cursor: pointer;
 `

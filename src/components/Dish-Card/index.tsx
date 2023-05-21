@@ -1,16 +1,19 @@
-import Pizza from '../../assets/images_efood/Pizza_marguerita.png'
+import { Dish } from '../../containers/Home'
 
 import * as S from './dish.card.style'
 
-const DishCard = () => {
+type Props = {
+  dish: Dish
+}
+
+const DishCard = ({ dish }: Props) => {
+  const { foto, descricao, nome } = dish
+
   return (
     <S.CardContainer>
-      <img src={Pizza} alt="Pizza" />
-      <h3>Pizza Marguerita</h3>
-      <p>
-        A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-        manjericão fresco e um toque de azeite. Sabor e simplicidade!
-      </p>
+      <img src={foto} alt="Pizza" />
+      <h3>{nome}</h3>
+      <p>{descricao}</p>
       <S.AddButton>Adicionar ao carrinho</S.AddButton>
     </S.CardContainer>
   )
