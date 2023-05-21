@@ -8,7 +8,6 @@ export const ContainerHome = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 80px;
   grid-row-gap: 48px;
-  text-align: center;
 
   & > h3 {
     font-size: 32px;
