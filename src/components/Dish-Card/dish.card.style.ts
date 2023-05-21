@@ -12,12 +12,13 @@ export const CardContainer = styled.div`
   p {
     font-size: 14px;
     line-height: 22px;
+    margin-bottom: 8px;
   }
 
   h3 {
     font-size: 16px;
     font-weight: bold;
-    margin: 8px 0;
+    margin: 16px 0;
   }
 
   img {

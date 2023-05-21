@@ -28,7 +28,7 @@ export const DescContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  z-index: 1;
 `
 
 export const TypeSpan = styled.span`
