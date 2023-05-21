@@ -16,6 +16,10 @@ export const ContentContainer = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: ${colors.tagsBackground};
+
+  span {
+    cursor: pointer;
+  }
 `
 
 export const HomeLink = styled(Link)`

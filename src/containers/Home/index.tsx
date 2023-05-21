@@ -5,7 +5,7 @@ import RestaurantCard from '../../components/Restaurant-card'
 import { ContainerHome } from './home.style'
 import { useGetRestarantsQuery } from '../../service/api'
 
-export type Dish = {
+export interface Dish {
   foto: string
   preco: number
   id: number
