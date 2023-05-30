@@ -30,7 +30,7 @@ export const ContentContainer = styled.div`
     justify-content: space-between;
     gap: 24px;
 
-    ${HomeLink}:first-child {
+    &${HomeLink}:first-child {
       display: none;
     }
 
