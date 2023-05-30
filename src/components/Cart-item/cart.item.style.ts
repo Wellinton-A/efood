@@ -13,6 +13,10 @@ export const CartItemContainer = styled.div`
     height: 80px;
     object-fit: cover;
   }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 export const InfoContainer = styled.div`
   display: flex;

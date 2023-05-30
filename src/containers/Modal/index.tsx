@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
+import * as Yup from 'yup'
 import {
   selectCartContent,
   selectIsCartOpen,
@@ -37,6 +38,35 @@ const CartModal = () => {
       month: undefined,
       year: undefined
     },
+    validationSchema: Yup.object({
+      receiver: Yup.string()
+        .min(5, 'O nome precisa ter um minimo de 5 caracteres.')
+        .required('O nome de quem ira receber e obrigatorio.'),
+      address: Yup.string().required('O endereco e obrigatorio.'),
+      city: Yup.string().required('A cidade e obrigatorio.'),
+      zipCode: Yup.string()
+        .min(9, 'O CEP precisa ter 9 numeros.')
+        .max(9, 'O CEP precisa ter 9 numeros.')
+        .required('O CEP e e obrigatorio.'),
+      number: Yup.string().required('O numero da casa e obrigatorio.'),
+      cardName: Yup.string()
+        .min(5, 'O campo precisa ter um minimo de 5 caracteres.')
+        .required('O campo e obrigatorio.'),
+      cardNumber: Yup.string()
+        .min(16, 'O campo precisa ter 16 caracteres.')
+        .max(16, 'O campo precisa ter 16 caracteres.')
+        .required('O campo e obrigatorio.'),
+      cvv: Yup.string()
+        .min(3, 'O campo precisa ter 3caracteres.')
+        .max(3, 'O campo precisa ter 3 caracteres.')
+        .required('O campo e obrigatorio.'),
+      month: Yup.string()
+        .min(4, 'O campo precisa ter um minimo de 4 caracteres.')
+        .required('O campo e obrigatorio.'),
+      year: Yup.string()
+        .min(2, 'O campo precisa ter um minimo de 2 caracteres.')
+        .required('O campo e obrigatorio.')
+    }),
     onSubmit: (values) => {
       console.log(values)
     }
@@ -95,10 +125,18 @@ const CartModal = () => {
     return acc + dish.quantity * dish.preco
   }, 0)
 
+  const getErrorMessage = (fieldName: string, messageError?: string) => {
+    const touchedField = fieldName in formik.touched
+    const errorMessase = fieldName in formik.errors
+
+    if (touchedField && errorMessase) return messageError
+    return ''
+  }
+
   return (
-    <S.CartModalContainer asideModal={isModalOpen.toString()}>
+    <S.CartModalContainer asidemodal={isModalOpen.toString()}>
       <S.Overlay onClick={handleModal}></S.Overlay>
-      <S.CartContainer asideModal={isCartOpen.toString()}>
+      <S.CartContainer asidemodal={isCartOpen.toString()}>
         {cartContent.length > 0 ? (
           <>
             <S.CartContent>
@@ -119,7 +157,7 @@ const CartModal = () => {
         )}
       </S.CartContainer>
       <form onSubmit={formik.handleSubmit}>
-        <S.CartContainer asideModal={isDeliveryOpen.toString()}>
+        <S.CartContainer asidemodal={isDeliveryOpen.toString()}>
           <div className="containerForm">
             <h3>Entrega</h3>
             <label htmlFor="receiver">Quem ira receber</label>
@@ -128,21 +166,33 @@ const CartModal = () => {
               id="receiver"
               value={formik.values.receiver}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <small style={{ marginBottom: '8px', color: 'red' }}>
+              {getErrorMessage('receiver', formik.errors.receiver)}
+            </small>
             <label htmlFor="address">Endereço</label>
             <input
               type="text"
               id="address"
               value={formik.values.address}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <small style={{ marginBottom: '8px', color: 'red' }}>
+              {getErrorMessage('address', formik.errors.address)}
+            </small>
             <label htmlFor="city">Cidade</label>
             <input
               type="text"
               id="city"
               value={formik.values.city}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <small style={{ marginBottom: '8px', color: 'red' }}>
+              {getErrorMessage('city', formik.errors.city)}
+            </small>
             <div style={{ display: 'flex' }}>
               <div style={{ marginRight: '34px' }}>
                 <label htmlFor="zipCode">CEP</label>
@@ -151,7 +201,11 @@ const CartModal = () => {
                   id="zipCode"
                   value={formik.values.zipCode}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '8px', color: 'red' }}>
+                  {getErrorMessage('zipCode', formik.errors.zipCode)}
+                </small>
               </div>
               <div>
                 <label htmlFor="number">Numero</label>
@@ -160,7 +214,11 @@ const CartModal = () => {
                   id="number"
                   value={formik.values.number}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '8px', color: 'red' }}>
+                  {getErrorMessage('number', formik.errors.number)}
+                </small>
               </div>
             </div>
             <label htmlFor="complement">Complemento(opcional)</label>
@@ -169,6 +227,7 @@ const CartModal = () => {
               id="complement"
               value={formik.values.complement}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
           <S.StyledSpan onClick={handleGotoPayment}>
@@ -178,7 +237,7 @@ const CartModal = () => {
             Voltar para o carrinho
           </S.StyledSpan>
         </S.CartContainer>
-        <S.CartContainer asideModal={isPayment.toString()}>
+        <S.CartContainer asidemodal={isPayment.toString()}>
           <div className="containerForm">
             <h3>Pagamento - Valor a pagar {formatPrice(totalValue)}</h3>
             <label htmlFor="cardName">Nome no cartão</label>
@@ -187,7 +246,11 @@ const CartModal = () => {
               id="cardName"
               value={formik.values.cardName}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <small style={{ marginBottom: '8px', color: 'red' }}>
+              {getErrorMessage('cardName', formik.errors.cardName)}
+            </small>
             <div style={{ display: 'flex' }}>
               <div style={{ width: '228px', marginRight: '30px' }}>
                 <label htmlFor="cardNumber">Número do cartão</label>
@@ -196,7 +259,11 @@ const CartModal = () => {
                   id="cardNumber"
                   value={formik.values.cardNumber}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '8px', color: 'red' }}>
+                  {getErrorMessage('cardNumber', formik.errors.cardNumber)}
+                </small>
               </div>
               <div style={{ width: '87px' }}>
                 <label htmlFor="cvv">CVV</label>
@@ -205,7 +272,11 @@ const CartModal = () => {
                   id="cvv"
                   value={formik.values.cvv}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '8px', color: 'red' }}>
+                  {getErrorMessage('cvv', formik.errors.cvv)}
+                </small>
               </div>
             </div>
             <div style={{ display: 'flex' }}>
@@ -216,7 +287,11 @@ const CartModal = () => {
                   id="month"
                   value={formik.values.month}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '8px', color: 'red' }}>
+                  {getErrorMessage('month', formik.errors.month)}
+                </small>
               </div>
               <div>
                 <label htmlFor="year">Ano de vencimento</label>
@@ -225,11 +300,15 @@ const CartModal = () => {
                   id="year"
                   value={formik.values.year}
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
+                <small style={{ marginBottom: '16px' }}>
+                  {getErrorMessage('year', formik.errors.year)}
+                </small>
               </div>
             </div>
           </div>
-          <S.SubmitButton type="submit" onClick={handleConfirmPurchase}>
+          <S.SubmitButton type="button" onClick={handleConfirmPurchase}>
             Finalizar pagamento
           </S.SubmitButton>
           <S.StyledSpan
@@ -240,7 +319,7 @@ const CartModal = () => {
           </S.StyledSpan>
         </S.CartContainer>
       </form>
-      <S.CartContainer asideModal={isConfirm.toString()}>
+      <S.CartContainer asidemodal={isConfirm.toString()}>
         <h3>Pedido realizado - </h3>
         <p>
           Estamos felizes em informar que seu pedido já está em processo de

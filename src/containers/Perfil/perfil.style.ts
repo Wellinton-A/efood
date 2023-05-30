@@ -11,6 +11,19 @@ export const DishesContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 32px;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    grid-column-gap: 24px;
+  }
+
+  @media (max-width: 767px) {
+    width: 90%;
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 `
 
 export const ModalContainer = styled.div<Props>`
@@ -50,6 +63,19 @@ export const ModalContent = styled.div`
     height: 280px;
     object-fit: cover;
     margin-right: 24px;
+  }
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
+
+  @media (max-width: 767px) {
+    width: 90%;
+    flex-direction: column;
+
+    h3 {
+      margin-top: 16px;
+    }
   }
 `
 

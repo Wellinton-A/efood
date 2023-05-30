@@ -2,7 +2,7 @@ import styled, { keyframes, css } from 'styled-components'
 import { colors } from '../../style/style'
 
 type Props = {
-  asideModal?: string
+  asidemodal?: string
 }
 
 const slideOpenigAnimation = keyframes`
@@ -36,7 +36,7 @@ export const CartModalContainer = styled.div<Props>`
   position: fixed;
   top: 0;
   left: 0;
-  display: ${(prop) => (prop.asideModal === 'true' ? 'flex' : 'none')};
+  display: ${(prop) => (prop.asidemodal === 'true' ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -48,7 +48,7 @@ export const CartContainer = styled.div<Props>`
   position: absolute;
   top: 0;
   right: 0;
-  display: ${(props) => (props.asideModal === 'true' ? 'flex' : 'none')};
+  display: ${(props) => (props.asidemodal === 'true' ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   width: 360px;
@@ -92,19 +92,23 @@ export const CartContainer = styled.div<Props>`
     margin-bottom: 16px;
   }
 
-  ${({ asideModal }) =>
-    asideModal === 'true' &&
+  ${({ asidemodal }) =>
+    asidemodal === 'true' &&
     css`
       animation: ${slideOpenigAnimation} 0.5s ease-in-out forwards;
       animation-fill-mode: forwards;
     `}
 
-  ${({ asideModal }) =>
-    asideModal === 'false' &&
+  ${({ asidemodal }) =>
+    asidemodal === 'false' &&
     css`
       animation: ${slideClosingAnimation} 0.5s ease-in-out forwards;
       animation-fill-mode: forwards;
     `}
+
+  @media (max-width: 767px) {
+    width: 80%;
+  }
 `
 
 export const CartContent = styled.div`

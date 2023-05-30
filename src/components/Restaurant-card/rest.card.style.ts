@@ -21,6 +21,10 @@ export const RestCardContainer = styled.div`
     line-height: 22px;
     margin: 0 8px 16px;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const ImageContainer = styled.div`
@@ -59,7 +63,7 @@ export const RestInfoContainer = styled.div`
 
 export const RateContainer = styled.div`
   display: flex;
-  align-itens: center;
+  align-items: center;
 
   span {
     margin-right: 8px;

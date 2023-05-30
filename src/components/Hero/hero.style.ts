@@ -23,12 +23,27 @@ export const ImageHeroContainer = styled.div`
   }
 `
 
+export const TitleSpan = styled.span`
+  font-size: 32px;
+  font-weight: 700;
+  color: ${colors.restCardBackgroud};
+  margin-top: 150px;
+`
+
 export const DescContainer = styled.div`
   width: 1024px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   z-index: 1;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+
+    ${TitleSpan} {
+      font-size: 24px;
+    }
+  }
 `
 
 export const TypeSpan = styled.span`
@@ -36,11 +51,4 @@ export const TypeSpan = styled.span`
   font-weight: 100;
   color: ${colors.restCardBackgroud};
   margin-top: 24px;
-`
-
-export const TitleSpan = styled.span`
-  font-size: 32px;
-  font-weight: 700;
-  color: ${colors.restCardBackgroud};
-  margin-top: 150px;
 `
