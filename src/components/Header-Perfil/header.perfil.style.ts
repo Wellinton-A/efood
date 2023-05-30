@@ -9,10 +9,6 @@ export const HeaderPerfilContainer = styled.header`
 
 export const HomeLink = styled(Link)`
   color: ${colors.tagsBackground};
-
-  @media (max-width: 767px) {
-    display: none;
-  }
 `
 
 export const ContentContainer = styled.div`
@@ -33,6 +29,10 @@ export const ContentContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     gap: 24px;
+
+    ${HomeLink}:first-child {
+      display: none;
+    }
 
     & > span {
       padding: 16px;
