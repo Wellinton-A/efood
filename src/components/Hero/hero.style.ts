@@ -21,6 +21,10 @@ export const ImageHeroContainer = styled.div`
     content: '';
     opacity: 0.5;
   }
+
+  @media (max-width: 767px) {
+    background-size: cover;
+  }
 `
 
 export const TitleSpan = styled.span`
