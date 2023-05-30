@@ -15,7 +15,11 @@ import { useGetRestaurantQuery } from '../../service/api'
 import { Dish } from '../Home'
 
 import close from '../../assets/images_efood/close 1.png'
-import { addToCart, handleShowCart } from '../../store/cart/cart.reducer'
+import {
+  addToCart,
+  handleShowCart,
+  handleShowModal
+} from '../../store/cart/cart.reducer'
 import CartModal from '../Modal'
 
 import * as S from './perfil.style'
@@ -44,6 +48,7 @@ const Perfil = () => {
   const handleAddToCart = () => {
     dispatch(addToCart(contentModal))
     dispatch(setModal(false))
+    dispatch(handleShowModal(true))
     dispatch(handleShowCart(true))
   }
 

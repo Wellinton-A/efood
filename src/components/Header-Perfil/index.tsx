@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { handleShowCart } from '../../store/cart/cart.reducer'
+import { handleShowCart, handleShowModal } from '../../store/cart/cart.reducer'
 
 import Logo from '../../assets/images_efood/logo.svg'
 import * as S from './header.perfil.style'
@@ -13,6 +13,7 @@ const HeaderPerfil = () => {
   const dispatch = useDispatch()
 
   const handleCart = () => {
+    dispatch(handleShowModal(true))
     dispatch(handleShowCart(true))
   }
 

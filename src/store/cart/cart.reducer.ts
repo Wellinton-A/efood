@@ -6,11 +6,13 @@ export interface CartDish extends Dish {
 }
 
 interface CartInitial {
+  isModalOpen: boolean
   isCartOpen: boolean
   cartContent: CartDish[]
 }
 
 const initialState: CartInitial = {
+  isModalOpen: false,
   isCartOpen: false,
   cartContent: []
 }
@@ -21,6 +23,12 @@ const cartSlice = createSlice({
   reducers: {
     handleShowCart(state, actions: PayloadAction<boolean>) {
       state.isCartOpen = actions.payload
+    },
+    handleShowModal(state, actions: PayloadAction<boolean>) {
+      state.isModalOpen = actions.payload
+    },
+    voidCartContent(state, actions: PayloadAction<[]>) {
+      state.cartContent = actions.payload
     },
     addToCart(state, actions: PayloadAction<Dish>) {
       if (state.cartContent.some((dish) => dish.id === actions.payload.id)) {
@@ -67,6 +75,8 @@ const cartSlice = createSlice({
 
 export const {
   handleShowCart,
+  handleShowModal,
+  voidCartContent,
   addToCart,
   removeFromCart,
   increaseItem,
