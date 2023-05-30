@@ -13,7 +13,7 @@ export const DishesContainer = styled.div`
   grid-gap: 32px;
 
   @media (max-width: 1024px) {
-    width: 80%;
+    width: 90%;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     grid-column-gap: 24px;
