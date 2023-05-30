@@ -15,13 +15,10 @@ import { useGetRestaurantQuery } from '../../service/api'
 import { Dish } from '../Home'
 
 import close from '../../assets/images_efood/close 1.png'
-import * as S from './perfil.style'
-import {
-  selectCartContent,
-  selectIsCartOpen
-} from '../../store/cart/cart.selector'
 import { addToCart, handleShowCart } from '../../store/cart/cart.reducer'
-import CartItem from '../../components/Cart-item'
+import CartModal from '../Modal'
+
+import * as S from './perfil.style'
 
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat('pt-BR', {
@@ -39,15 +36,9 @@ const Perfil = () => {
 
   const contentModal = useSelector(selectContentModal)
   const modal = useSelector(selectModal)
-  const isCartOpen = useSelector(selectIsCartOpen)
-  const cartContent = useSelector(selectCartContent)
 
   const handleModal = () => {
     dispatch(setModal(false))
-  }
-
-  const handleCart = () => {
-    dispatch(handleShowCart(false))
   }
 
   const handleAddToCart = () => {
@@ -55,10 +46,6 @@ const Perfil = () => {
     dispatch(setModal(false))
     dispatch(handleShowCart(true))
   }
-
-  const totalValue = cartContent.reduce((acc: number, dish) => {
-    return acc + dish.quantity * dish.preco
-  }, 0)
 
   if (restaurant) {
     return (
@@ -73,27 +60,7 @@ const Perfil = () => {
           </S.DishesContainer>
           <Footer />
         </>
-        <S.CartModalContainer cart={isCartOpen.toString()}>
-          <S.Overlay onClick={handleCart}></S.Overlay>
-          <S.CartContainer cart={isCartOpen.toString()}>
-            {cartContent.length > 0 ? (
-              <>
-                <S.CartContent>
-                  {cartContent.map((dish) => (
-                    <CartItem key={dish.id} dish={dish} />
-                  ))}
-                </S.CartContent>
-                <S.TotalValue>
-                  <span>Valor total</span>
-                  <span>{formatPrice(totalValue)}</span>
-                </S.TotalValue>
-                <S.GoToDelivery>Continuar para a entrega</S.GoToDelivery>
-              </>
-            ) : (
-              <S.CartSpan>Seu carrinho esta vazio...</S.CartSpan>
-            )}
-          </S.CartContainer>
-        </S.CartModalContainer>
+        <CartModal />
         <S.ModalContainer modal={modal.toString()}>
           <S.ModalContent>
             <S.CloseContainer onClick={handleModal}>
