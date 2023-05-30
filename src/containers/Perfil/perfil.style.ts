@@ -67,6 +67,10 @@ export const ModalContent = styled.div`
 
   @media (max-width: 1024px) {
     width: 90%;
+
+    img {
+      width: 100%;
+    }
   }
 
   @media (max-width: 767px) {
