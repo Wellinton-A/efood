@@ -23,20 +23,17 @@ import {
 import CartModal from '../Modal'
 
 import * as S from './perfil.style'
+import { parseToBrl } from '../../utils/utils'
 
-export const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(price)
+type GameParams = {
+  id: string
 }
 
 const Perfil = () => {
-  const { id } = useParams()
+  const { id } = useParams() as GameParams
   const dispatch = useDispatch()
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data: restaurant } = useGetRestaurantQuery(id!)
+  const { data: restaurant } = useGetRestaurantQuery(id)
 
   const contentModal = useSelector(selectContentModal)
   const modal = useSelector(selectModal)
@@ -77,7 +74,7 @@ const Perfil = () => {
               <p>{contentModal.descricao}</p>
               <S.PortionSpan>Serve: de {contentModal.porcao}</S.PortionSpan>
               <S.AddtoCart onClick={handleAddToCart}>
-                Adicionar ao carrinho - {formatPrice(contentModal.preco)}
+                Adicionar ao carrinho - {parseToBrl(contentModal.preco)}
               </S.AddtoCart>
             </S.InfoContainer>
           </S.ModalContent>

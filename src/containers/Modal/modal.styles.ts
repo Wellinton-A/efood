@@ -81,6 +81,11 @@ export const CartContainer = styled.div<Props>`
       background-color: ${colors.heroBackground};
       outline-color: ${colors.tagsBackground};
     }
+
+    .outline-error {
+      border: 3px solid red;
+      color: red;
+    }
   }
 
   p {

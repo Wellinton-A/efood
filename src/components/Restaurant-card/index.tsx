@@ -30,7 +30,12 @@ const RestaurantCard = ({ restaurant }: Props) => {
       </S.RestInfoContainer>
       <span>{descricao}</span>
       <S.KnowMoreConainer>
-        <S.LinkTag to={`/cardapio/${id}`}>Saiba mais</S.LinkTag>
+        <S.LinkTag
+          title="Clique para ver os pratos disponiveis do restaurante"
+          to={`/cardapio/${id}`}
+        >
+          Saiba mais
+        </S.LinkTag>
       </S.KnowMoreConainer>
     </S.RestCardContainer>
   )

@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 
-import { formatPrice } from '../../containers/Perfil'
 import {
   CartDish,
   decreaseItem,
@@ -11,6 +10,7 @@ import {
 import remove from '../../assets/images_efood/lixeira-de-reciclagem 1.png'
 
 import * as S from './cart.item.style'
+import { parseToBrl } from '../../utils/utils'
 
 type Props = {
   dish: CartDish
@@ -46,7 +46,7 @@ const CartItem = ({ dish }: Props) => {
             <span>{quantity}</span>
             <S.IncSpan onClick={handleIncrease}>{'>'}</S.IncSpan>
           </S.NumbersQuantiy>
-          <S.PriceSpan>X {formatPrice(preco)}</S.PriceSpan>
+          <S.PriceSpan>X {parseToBrl(preco)}</S.PriceSpan>
         </S.ValueContainer>
       </S.InfoContainer>
     </S.CartItemContainer>

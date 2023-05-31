@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Restaurant } from '../containers/Home'
 
+type PurchaseResponse = {
+  orderId: string
+}
+
 export type Product = {
   id: number
   price: number
@@ -42,8 +46,7 @@ const api = createApi({
     getRestaurant: builder.query<Restaurant, string>({
       query: (id) => `restaurantes/${id}`
     }),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    purchase: builder.mutation<any, PurchasePayload>({
+    purchase: builder.mutation<PurchaseResponse, PurchasePayload>({
       query: (body) => ({
         url: 'checkout',
         method: 'POST',
