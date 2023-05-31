@@ -351,10 +351,7 @@ const CartModal = () => {
         </S.CartContainer>
       </form>
       <S.CartContainer asidemodal={isConfirm.toString()}>
-        <S.SpinnerContainer>
-          <S.SpinnerInner />
-        </S.SpinnerContainer>
-        {/* {data ? (
+        {data ? (
           <>
             <h3>Pedido realizado - ORDER_ID:{data.orderId}</h3>
             <p>
@@ -377,8 +374,10 @@ const CartModal = () => {
             <S.StyledSpan onClick={handleConclude}>Concluir</S.StyledSpan>
           </>
         ) : (
-
-        )} */}
+          <S.SpinnerContainer>
+            <S.SpinnerInner />
+          </S.SpinnerContainer>
+        )}
       </S.CartContainer>
     </S.CartModalContainer>
   )
