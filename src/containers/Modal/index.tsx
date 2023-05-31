@@ -18,11 +18,14 @@ import CartItem from '../../components/Cart-item'
 
 import * as S from './modal.styles'
 import { useState } from 'react'
+import { usePurchaseMutation } from '../../service/api'
 
 const CartModal = () => {
   const [isDeliveryOpen, setIsDeliveryOpen] = useState<boolean>(false)
   const [isPayment, setIsPayment] = useState<boolean>(false)
   const [isConfirm, setIsConfirm] = useState<boolean>(false)
+
+  const [purchase, { isError, data }] = usePurchaseMutation()
 
   const formik = useFormik({
     initialValues: {
@@ -30,13 +33,13 @@ const CartModal = () => {
       address: '',
       city: '',
       zipCode: '',
-      number: undefined,
+      number: '',
       complement: '',
       cardName: '',
       cardNumber: '',
-      cvv: undefined,
-      month: undefined,
-      year: undefined
+      cvv: '',
+      month: '',
+      year: ''
     },
     validationSchema: Yup.object({
       receiver: Yup.string()
@@ -45,8 +48,8 @@ const CartModal = () => {
       address: Yup.string().required('O endereco e obrigatorio.'),
       city: Yup.string().required('A cidade e obrigatorio.'),
       zipCode: Yup.string()
-        .min(9, 'O CEP precisa ter 9 numeros.')
-        .max(9, 'O CEP precisa ter 9 numeros.')
+        .min(8, 'O CEP precisa ter 8 numeros.')
+        .max(8, 'O CEP precisa ter 8 numeros.')
         .required('O CEP e e obrigatorio.'),
       number: Yup.string().required('O numero da casa e obrigatorio.'),
       cardName: Yup.string()
@@ -61,14 +64,46 @@ const CartModal = () => {
         .max(3, 'O campo precisa ter 3 caracteres.')
         .required('O campo e obrigatorio.'),
       month: Yup.string()
-        .min(4, 'O campo precisa ter um minimo de 4 caracteres.')
+        .min(2, 'O campo precisa ter 2 caracteres.')
         .required('O campo e obrigatorio.'),
       year: Yup.string()
-        .min(2, 'O campo precisa ter um minimo de 2 caracteres.')
+        .min(4, 'O campo precisa ter 4 caracteres.')
         .required('O campo e obrigatorio.')
     }),
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: (values, { resetForm }) => {
+      setTimeout(
+        () =>
+          purchase({
+            products: cartContent.map((product) => {
+              return { id: product.id, price: product.preco }
+            }),
+            delivery: {
+              receiver: values.receiver,
+              adress: {
+                description: values.address,
+                city: values.city,
+                zipCode: values.zipCode,
+                number: Number(values.number),
+                complement: values.complement
+              }
+            },
+            payment: {
+              card: {
+                name: values.cardName,
+                number: values.cardNumber,
+                code: Number(values.cvv),
+                expires: {
+                  month: Number(values.month),
+                  year: Number(values.year)
+                }
+              }
+            }
+          }),
+        3000
+      )
+      handleConfirmPurchase()
+      dispatch(voidCartContent([]))
+      resetForm()
     }
   })
 
@@ -117,8 +152,6 @@ const CartModal = () => {
     setIsDeliveryOpen(false)
     setIsPayment(false)
     setIsConfirm(false)
-
-    dispatch(voidCartContent([]))
   }
 
   const totalValue = cartContent.reduce((acc: number, dish) => {
@@ -168,7 +201,7 @@ const CartModal = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <small style={{ marginBottom: '8px', color: 'red' }}>
+            <small style={{ marginBottom: '8px' }}>
               {getErrorMessage('receiver', formik.errors.receiver)}
             </small>
             <label htmlFor="address">Endereço</label>
@@ -179,7 +212,7 @@ const CartModal = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <small style={{ marginBottom: '8px', color: 'red' }}>
+            <small style={{ marginBottom: '8px' }}>
               {getErrorMessage('address', formik.errors.address)}
             </small>
             <label htmlFor="city">Cidade</label>
@@ -190,7 +223,7 @@ const CartModal = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <small style={{ marginBottom: '8px', color: 'red' }}>
+            <small style={{ marginBottom: '8px' }}>
               {getErrorMessage('city', formik.errors.city)}
             </small>
             <div style={{ display: 'flex' }}>
@@ -203,7 +236,7 @@ const CartModal = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <small style={{ marginBottom: '8px', color: 'red' }}>
+                <small style={{ marginBottom: '8px' }}>
                   {getErrorMessage('zipCode', formik.errors.zipCode)}
                 </small>
               </div>
@@ -216,7 +249,7 @@ const CartModal = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <small style={{ marginBottom: '8px', color: 'red' }}>
+                <small style={{ marginBottom: '8px' }}>
                   {getErrorMessage('number', formik.errors.number)}
                 </small>
               </div>
@@ -248,7 +281,7 @@ const CartModal = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <small style={{ marginBottom: '8px', color: 'red' }}>
+            <small style={{ marginBottom: '8px' }}>
               {getErrorMessage('cardName', formik.errors.cardName)}
             </small>
             <div style={{ display: 'flex' }}>
@@ -261,7 +294,7 @@ const CartModal = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <small style={{ marginBottom: '8px', color: 'red' }}>
+                <small style={{ marginBottom: '8px' }}>
                   {getErrorMessage('cardNumber', formik.errors.cardNumber)}
                 </small>
               </div>
@@ -274,7 +307,7 @@ const CartModal = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <small style={{ marginBottom: '8px', color: 'red' }}>
+                <small style={{ marginBottom: '8px' }}>
                   {getErrorMessage('cvv', formik.errors.cvv)}
                 </small>
               </div>
@@ -289,7 +322,7 @@ const CartModal = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <small style={{ marginBottom: '8px', color: 'red' }}>
+                <small style={{ marginBottom: '8px' }}>
                   {getErrorMessage('month', formik.errors.month)}
                 </small>
               </div>
@@ -308,9 +341,7 @@ const CartModal = () => {
               </div>
             </div>
           </div>
-          <S.SubmitButton type="button" onClick={handleConfirmPurchase}>
-            Finalizar pagamento
-          </S.SubmitButton>
+          <S.SubmitButton type="submit">Finalizar pagamento</S.SubmitButton>
           <S.StyledSpan
             style={{ marginTop: '8px' }}
             onClick={handleBackToAddress}
@@ -320,24 +351,33 @@ const CartModal = () => {
         </S.CartContainer>
       </form>
       <S.CartContainer asidemodal={isConfirm.toString()}>
-        <h3>Pedido realizado - </h3>
-        <p>
-          Estamos felizes em informar que seu pedido já está em processo de
-          preparação e, em breve, será entregue no endereço fornecido.
-        </p>
-        <p>
-          Gostaríamos de ressaltar que nossos entregadores não estão autorizados
-          a realizar cobranças extras.
-        </p>
-        <p>
-          Lembre-se da importância de higienizar as mãos após o recebimento do
-          pedido, garantindo assim sua segurança e bem-estar durante a refeição.
-        </p>
-        <p>
-          Esperamos que desfrute de uma deliciosa e agradável experiência
-          gastronômica. Bom apetite!
-        </p>
-        <S.StyledSpan onClick={handleConclude}>Concluir</S.StyledSpan>
+        {!data ? (
+          <S.SpinnerContainer>
+            <S.SpinnerInner />
+          </S.SpinnerContainer>
+        ) : (
+          <>
+            <h3>Pedido realizado - ORDER_ID:{data.orderId}</h3>
+            <p>
+              Estamos felizes em informar que seu pedido já está em processo de
+              preparação e, em breve, será entregue no endereço fornecido.
+            </p>
+            <p>
+              Gostaríamos de ressaltar que nossos entregadores não estão
+              autorizados a realizar cobranças extras.
+            </p>
+            <p>
+              Lembre-se da importância de higienizar as mãos após o recebimento
+              do pedido, garantindo assim sua segurança e bem-estar durante a
+              refeição.
+            </p>
+            <p>
+              Esperamos que desfrute de uma deliciosa e agradável experiência
+              gastronômica. Bom apetite!
+            </p>
+            <S.StyledSpan onClick={handleConclude}>Concluir</S.StyledSpan>
+          </>
+        )}
       </S.CartContainer>
     </S.CartModalContainer>
   )
