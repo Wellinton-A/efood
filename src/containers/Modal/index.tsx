@@ -25,7 +25,7 @@ const CartModal = () => {
   const [isPayment, setIsPayment] = useState<boolean>(false)
   const [isConfirm, setIsConfirm] = useState<boolean>(false)
 
-  const [purchase, { isError, data }] = usePurchaseMutation()
+  const [purchase, { data }] = usePurchaseMutation()
 
   const formik = useFormik({
     initialValues: {

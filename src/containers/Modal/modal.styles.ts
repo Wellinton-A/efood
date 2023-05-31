@@ -5,11 +5,6 @@ type Props = {
   asidemodal?: string
 }
 
-const spinAnimation = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-`
-
 const slideOpenigAnimation = keyframes`
   from {
     transform: translateX(100%);
@@ -163,13 +158,9 @@ export const SubmitButton = styled.button`
   margin-top: 16px;
 `
 
-export const SpinnerContainer = styled.div`
-  margin: 100px auto;
-  width: 50px;
-  height: 50px;
-  position: relative;
-  text-align: center;
-  animation: ${spinAnimation} 2s infinite linear;
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
 `
 
 export const SpinnerInner = styled.div`
@@ -183,4 +174,13 @@ export const SpinnerInner = styled.div`
   border: 3px solid ${colors.heroBackground};
   border-top-color: ${colors.tagsBackground};
   animation: ${spinAnimation} 1.5s infinite linear;
+`
+
+export const SpinnerContainer = styled.div`
+  margin: 100px auto;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  text-align: center;
+  animation: ${spinAnimation} 2s infinite linear;
 `
