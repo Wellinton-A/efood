@@ -142,13 +142,15 @@ const CartModal = () => {
       !formik.errors.address &&
       !formik.errors.city &&
       !formik.errors.zipCode &&
-      !formik.errors.number
+      !formik.errors.number &&
+      formik.errors.cardName
     ) {
       setIsDeliveryOpen(false)
       setIsPayment(true)
     }
   }
 
+  console.log(formik.errors)
   const handleBackToCart = () => {
     dispatch(handleShowCart(true))
     setIsDeliveryOpen(false)
