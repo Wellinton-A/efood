@@ -137,8 +137,16 @@ const CartModal = () => {
   }
 
   const handleGotoPayment = () => {
-    setIsDeliveryOpen(false)
-    setIsPayment(true)
+    if (
+      !formik.errors.receiver &&
+      !formik.errors.address &&
+      !formik.errors.city &&
+      !formik.errors.zipCode &&
+      !formik.errors.number
+    ) {
+      setIsDeliveryOpen(false)
+      setIsPayment(true)
+    }
   }
 
   const handleBackToCart = () => {
